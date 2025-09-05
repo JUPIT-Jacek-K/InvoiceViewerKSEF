@@ -1,0 +1,19 @@
+import wx
+from UI_Windows.winDialogs import winMessageBox, wxdlg_const
+
+class winMain(wx.Frame):
+    def __init__(self, parent, title):
+        super(winMain, self).__init__(parent, title=title, size=(1200, 800))
+                
+        self.Show()
+
+    def OnClose(self, event):
+        msgMox = winMessageBox(
+            "Czy zamknąć aplikację?",
+            "Ustawienia XYX",
+            wxdlg_const.ID_YES_NO | wxdlg_const.ICON_ASK,
+            self,
+        )
+        ii = msgMox.ShowModal()
+        if ii == wxdlg_const.ID_YES:
+            self.Destroy()
