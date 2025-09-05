@@ -48,12 +48,13 @@ class winMain(wx.MDIParentFrame):
             id_op = openFileDialog.ShowModal()
             if id_op == wx.ID_OK:
                 path = openFileDialog.GetPath()
-                mdiWinInvoice = winInvoiceView(self, f"Podgląd faktury - {os.path.basename( path)}")
+                mdiWinInvoice = winInvoiceView(self, "Podgląd faktury")
                 if mdiWinInvoice.load_invoice( path ):
+                    mdiWinInvoice.SetTitle(f"Podgląd faktury - {os.path.basename( path)}")
                     mdiWinInvoice.Show()
-                    mdiWinInvoice.htmlWinFa.SetFocus()
                 else:
                     mdiWinInvoice.Destroy()
+
 
             openFileDialog.Destroy()
 

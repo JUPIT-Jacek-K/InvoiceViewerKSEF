@@ -1,7 +1,6 @@
-import os
 import wx
 
-from UI_Windows.winInvoiceView import winInvoiceView
+from UI_Windows import winInvoiceView
 from UI_Windows.winDialogs import winMessageBox, wxdlg_const
 
 
@@ -48,12 +47,7 @@ class winMain(wx.MDIParentFrame):
             id_op = openFileDialog.ShowModal()
             if id_op == wx.ID_OK:
                 path = openFileDialog.GetPath()
-                mdiWinInvoice = winInvoiceView(self, f"Podgląd faktury - {os.path.basename( path)}")
-                if mdiWinInvoice.load_invoice( path ):
-                    mdiWinInvoice.Show()
-                    mdiWinInvoice.htmlWinFa.SetFocus()
-                else:
-                    mdiWinInvoice.Destroy()
+                self.AddChild(winInvoiceView(self, "Podgląd faktury", path))
 
             openFileDialog.Destroy()
 
