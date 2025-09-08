@@ -1,4 +1,5 @@
 import os
+from UI_Windows.winAbout import winAbout
 import wx
 
 from UI_Windows.winInvoiceView import winInvoiceView
@@ -56,6 +57,10 @@ class winMain(wx.MDIParentFrame):
                     mdiWinInvoice.Destroy()
 
             openFileDialog.Destroy()
+        elif id == wx.ID_ABOUT :
+            dlgAbout = winAbout()
+            dlgAbout.ShowModal()
+            dlgAbout.Destroy()
 
     def OnClose(self, event):
         msgMox = winMessageBox(

@@ -26,63 +26,63 @@ class class_wxdlg_const(object):
     def __init__(self):
         #
         self._Icons = {
-            0x0100: self._GRAPHICS_PATH+"Ask_48x48.png",
-            0x0200: self._GRAPHICS_PATH+"Warning_48x48.png",
-            0x0300: self._GRAPHICS_PATH+"Error_48x48.png",
-            0x0400: self._GRAPHICS_PATH+"Info_Circle_48x48.png",
-            0x0500: self._GRAPHICS_PATH+"Padlock_close_48x48.png.png",
+            0x0100: self._GRAPHICS_PATH + "Ask_48x48.png",
+            0x0200: self._GRAPHICS_PATH + "Warning_48x48.png",
+            0x0300: self._GRAPHICS_PATH + "Error_48x48.png",
+            0x0400: self._GRAPHICS_PATH + "Info_Circle_48x48.png",
+            0x0500: self._GRAPHICS_PATH + "Padlock_close_48x48.png.png",
         }
 
         self._Options = {
             self._YES: {
                 "caption": "Tak",
                 "wxId": wx.ID_YES,
-                "icon": self._GRAPHICS_PATH+"Yes_24x24.png",
+                "icon": self._GRAPHICS_PATH + "Yes_24x24.png",
             },
             self._OK: {
                 "caption": "OK",
                 "wxId": wx.ID_OK,
-                "icon": self._GRAPHICS_PATH+"Yes_24x24.png",
+                "icon": self._GRAPHICS_PATH + "Yes_24x24.png",
             },
             self._SAVE: {
                 "caption": "Zapisz",
                 "wxId": wx.ID_SAVE,
-                "icon": self._GRAPHICS_PATH+"Save_24x24.png",
+                "icon": self._GRAPHICS_PATH + "Save_24x24.png",
             },
             self._APPLY: {
                 "caption": "Zastosuj",
                 "wxId": wx.ID_APPLY,
-                "icon": self._GRAPHICS_PATH+"Apply_24x24.png",
+                "icon": self._GRAPHICS_PATH + "Apply_24x24.png",
             },
             self._SAVEAS: {
                 "caption": "Zapisz jako",
                 "wxId": wx.ID_SAVEAS,
-                "icon": self._GRAPHICS_PATH+"SaveAs_24x24.png",
+                "icon": self._GRAPHICS_PATH + "SaveAs_24x24.png",
             },
             self._CLOSE: {
                 "caption": "Zamknij",
                 "wxId": wx.ID_CLOSE,
-                "icon": self._GRAPHICS_PATH+"Close_24x24.png",
+                "icon": self._GRAPHICS_PATH + "Close_24x24.png",
             },
             self._HELP: {
                 "caption": "Pomoc",
                 "wxId": wx.ID_HELP,
-                "icon": self._GRAPHICS_PATH+"Help_24x24.png",
+                "icon": self._GRAPHICS_PATH + "Help_24x24.png",
             },
             self._NO: {
                 "caption": "Nie",
                 "wxId": wx.ID_NO,
-                "icon": self._GRAPHICS_PATH+"No_24x24.png",
+                "icon": self._GRAPHICS_PATH + "No_24x24.png",
             },
             self._CANCEL: {
                 "caption": "Anuluj",
                 "wxId": wx.ID_CANCEL,
-                "icon": self._GRAPHICS_PATH+"No_24x24.png",
+                "icon": self._GRAPHICS_PATH + "No_24x24.png",
             },
             self._ABORT: {
                 "caption": "Porzuć",
                 "wxId": wx.ID_ABORT,
-                "icon": self._GRAPHICS_PATH+"No_Circle_24x24.png",
+                "icon": self._GRAPHICS_PATH + "No_Circle_24x24.png",
             },
         }
 
@@ -208,7 +208,7 @@ class class_wxdlg_const(object):
     @property
     def ICON_NONE(self):
         return self._ICON_NONE
-    
+
     @property
     def GRAPHICS_PATH(self):
         return self._GRAPHICS_PATH
@@ -243,6 +243,7 @@ class class_wxdlg_const(object):
             or status == self._HELP
             or status == self._NO
             or status == self._CANCEL
+            or status == self._CLOSE
             or status == self._ABORT
         ):
             xButton = wx.Button(
@@ -316,7 +317,7 @@ class winMessageBox(wx.Dialog):
         if text_size.GetWidth() < 200:
             self.m_staticText5.SetMinSize((200, -1))
 
-        messageSizer.Add(self.m_staticText5, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5)
+        messageSizer.Add(self.m_staticText5, 0, wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
 
         self.panelMessage.SetSizer(messageSizer)
         self.panelMessage.Layout()
@@ -348,7 +349,7 @@ class winMessageBox(wx.Dialog):
 
         if (style & wxdlg_const.ID_CLOSE) == wxdlg_const.ID_CLOSE:
             self.buttonsSizerClose = wxdlg_const.Button(self, wxdlg_const.ID_CLOSE)
-            buttonsSizer.AddButton(self.buttonsSizerSave)
+            buttonsSizer.AddButton(self.buttonsSizerClose)
             self.buttonsSizerClose.Bind(wx.EVT_BUTTON, self.onClickClose)
 
         if (style & wxdlg_const.ID_NO) == wxdlg_const.ID_NO:
@@ -406,73 +407,3 @@ class winMessageBox(wx.Dialog):
 
 def MyMessageBox():
     pass
-
-
-class MyDialog3(wx.Dialog):
-    def __init__(self, parent):
-        wx.Dialog.__init__(
-            self,
-            parent,
-            id=wx.ID_ANY,
-            title=wx.EmptyString,
-            pos=wx.DefaultPosition,
-            size=wx.DefaultSize,
-            style=wx.DEFAULT_DIALOG_STYLE,
-        )
-
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
-        mainSizer = wx.BoxSizer(wx.VERTICAL)
-
-        self.m_panel1 = wx.Panel(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL
-        )
-        self.m_panel1.SetBackgroundColour(
-            wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW)
-        )
-
-        messageSizer = wx.FlexGridSizer(0, 2, 0, 0)
-        messageSizer.SetFlexibleDirection(wx.BOTH)
-        messageSizer.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
-
-        # self.m_bitmap1 = wx.StaticBitmap( self.m_panel1, wx.ID_ANY, wx.Bitmap( calculate_path("Icons/24x24/Information-24x24.png"), wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
-        # messageSizer.Add( self.m_bitmap1, 0, wx.ALL, 5 )
-
-        self.m_staticText5 = wx.StaticText(
-            self.m_panel1,
-            wx.ID_ANY,
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sodales aliquam neque.",
-            wx.DefaultPosition,
-            wx.DefaultSize,
-            0,
-        )
-        self.m_staticText5.Wrap(200)
-
-        messageSizer.Add(self.m_staticText5, 0, wx.ALL, 5)
-
-        self.m_panel1.SetSizer(messageSizer)
-        self.m_panel1.Layout()
-        messageSizer.Fit(self.m_panel1)
-        mainSizer.Add(self.m_panel1, 1, wx.EXPAND | wx.ALL, 5)
-
-        buttonsSizer = wx.StdDialogButtonSizer()
-        self.buttonsSizerApply = wx.Button(self, wx.ID_APPLY)
-        buttonsSizer.AddButton(self.buttonsSizerApply)
-        self.buttonsSizerNo = wx.Button(self, wx.ID_NO)
-        buttonsSizer.AddButton(self.buttonsSizerNo)
-        self.buttonsSizerCancel = wx.Button(self, wx.ID_CANCEL)
-        buttonsSizer.AddButton(self.buttonsSizerCancel)
-        self.buttonsSizerHelp = wx.Button(self, wx.ID_HELP)
-        buttonsSizer.AddButton(self.buttonsSizerHelp)
-        buttonsSizer.Realize()
-
-        mainSizer.Add(buttonsSizer, 1, wx.EXPAND, 1)
-
-        self.SetSizer(mainSizer)
-        self.Layout()
-        mainSizer.Fit(self)
-
-        self.Centre(wx.BOTH)
-
-    def __del__(self):
-        pass
