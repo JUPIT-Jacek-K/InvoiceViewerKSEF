@@ -8,7 +8,7 @@ from UI_Windows.winDialogs import winMessageBox, wxdlg_const
 
 class winMain(wx.MDIParentFrame):
     def __init__(self, parent, title):
-        super(winMain, self).__init__(parent, title=title, size=(1200, 800))
+        super(winMain, self).__init__(parent, title=title, size=wx.Size(1200, 800))
 
         self.menuBar = wx.MenuBar()
         self.menuProgram = wx.Menu()

@@ -14,7 +14,9 @@ _ = gettext.gettext
 
 class winInvoiceView(wx.MDIChildFrame):
     def __init__(self, parent, title):
-        super(winInvoiceView, self).__init__(parent, title=title, size=(800, 600))
+        super(winInvoiceView, self).__init__(
+            parent, title=title, size=wx.Size(800, 600)
+        )
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         self.m_toolBar1 = self.CreateToolBar(wx.TB_HORIZONTAL, wx.ID_ANY)
@@ -25,7 +27,9 @@ class winInvoiceView(wx.MDIChildFrame):
 
         self.m_statusBar1 = self.CreateStatusBar(1, wx.STB_SIZEGRIP, wx.ID_ANY)
         self.m_statusBar1.SetStatusText(_("Gotowy"), 0)
-        self.vieSizer = wx.BoxSizer(wx.VERTICAL) #wx.StaticBox(self, wx.ID_ANY, _("label"), wx.DefaultPosition, wx.DefaultSize, wx.ALL | wx.EXPAND, 5)
+        self.vieSizer = wx.BoxSizer(
+            wx.VERTICAL
+        )  # wx.StaticBox(self, wx.ID_ANY, _("label"), wx.DefaultPosition, wx.DefaultSize, wx.ALL | wx.EXPAND, 5)
 
         self.htmlWinFa = wx.html2.WebView.New(
             self,
@@ -36,7 +40,7 @@ class winInvoiceView(wx.MDIChildFrame):
             wx.html2.WebViewBackendDefault,
             wx.ALL | wx.EXPAND,
         )
-        
+
         self.htmlWinFa.SetMinSize(wx.Size(-1, -1))
         self.vieSizer.Add(self.htmlWinFa, 1, wx.EXPAND | wx.ALL, 5)
         self.SetSizer(self.vieSizer)
@@ -50,6 +54,7 @@ class winInvoiceView(wx.MDIChildFrame):
         file_fa_base, file_fa_ext = os.path.splitext(file_fa_full)
         folder_name = "BUFOR"
         parsing_ok = False
+        html_body = ""
         try:
             parser = ET.XMLParser()
             parser.resolvers.add(FileResolver())
