@@ -7,17 +7,29 @@ from Settings.global_var import varGlobals
 from UI_Windows.winDialogs import winMessageBox, wxdlg_const
 
 
-class custonHtmlWindow( wx.html.HtmlWindow ):
-    '''
-    '''
-    def __init__( self, parent: wx.Window, id: int = wx.ID_ANY, pos: wx.Point = wx.DefaultPosition, size: wx.Size = wx.DefaultSize, style: int = wx.html.HW_DEFAULT_STYLE, name: str = "htmlWindow" ):
-        wx.html.HtmlWindow.__init__( self, parent, id, pos, size, style, name)
+class custonHtmlWindow(wx.html.HtmlWindow):
+    """ """
+
+    def __init__(
+        self,
+        parent: wx.Window,
+        id: int = wx.ID_ANY,
+        pos: wx.Point = wx.DefaultPosition,
+        size: wx.Size = wx.DefaultSize,
+        style: int = wx.html.HW_DEFAULT_STYLE,
+        name: str = "htmlWindow",
+    ):
+        wx.html.HtmlWindow.__init__(self, parent, id, pos, size, style, name)
 
     def OnHTMLLinkClicked(self, link: wx.html.HtmlLinkInfo):
-        winWAsk = winMessageBox("Kliknąłęś na odnośnik do projektu na GitHub.\nCzy otworzyć projekt w preglądarce?","Otwarcie strony GitHub", wxdlg_const.ICON_ASK | wxdlg_const.ID_YES_NO)
+        winWAsk = winMessageBox(
+            "Kliknąłęś na odnośnik do projektu na GitHub.\nCzy otworzyć projekt w preglądarce?",
+            "Otwarcie strony GitHub",
+            wxdlg_const.ICON_ASK | wxdlg_const.ID_YES_NO,
+        )
         idAsk = winWAsk.ShowModal()
         if idAsk == wxdlg_const.ID_YES:
-            webbrowser.open_new_tab( link.GetHref() )
+            webbrowser.open_new_tab(link.GetHref())
         winWAsk.Destroy()
 
 
@@ -71,15 +83,15 @@ class winAbout(wx.Dialog):
         self.aboutImage = wx.StaticBitmap(
             parent=self.infoPanel,
             id=wx.ID_ANY,
-            bitmap= wx.Bitmap(
+            bitmap=wx.Bitmap(
                 calculate_path("Graphics/About/aboutImage.png"), wx.BITMAP_TYPE_ANY
-            ), # type: ignore
+            ),  # type: ignore
             pos=wx.DefaultPosition,
             size=wx.DefaultSize,
         )
         messageSizer.Add(self.aboutImage, 0, 0, 5)
 
-        self.m_htmlWinAbout = custonHtmlWindow( # wx.html.HtmlWindow
+        self.m_htmlWinAbout = custonHtmlWindow(  # wx.html.HtmlWindow
             self.infoPanel,
             wx.ID_ANY,
             wx.DefaultPosition,

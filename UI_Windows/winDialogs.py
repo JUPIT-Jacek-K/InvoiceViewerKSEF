@@ -225,7 +225,7 @@ class class_wxdlg_const(object):
             xIcon = wx.StaticBitmap(
                 xwin,
                 wx.ID_ANY,
-                wx.Bitmap(calculate_path(self._Icons[status]), wx.BITMAP_TYPE_ANY),
+                wx.Bitmap(calculate_path(self._Icons[status]), wx.BITMAP_TYPE_ANY),  # type: ignore
                 wx.DefaultPosition,
                 wx.DefaultSize,
                 0,
@@ -252,7 +252,7 @@ class class_wxdlg_const(object):
             xButton.SetBitmapLabel(
                 wx.Bitmap(
                     calculate_path(self._Options[status]["icon"]), wx.BITMAP_TYPE_ANY
-                )
+                )  # type: ignore
             )
 
         else:
@@ -291,7 +291,7 @@ class winMessageBox(wx.Dialog):
         self.panelMessage.SetBackgroundColour(
             wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW)
         )
-        self.panelMessage.SetMinSize(size=(-1, -1))
+        self.panelMessage.SetMinSize(size=wx.Size(-1, -1))
 
         s_hGap = 5
         s_bMarg = 5
@@ -315,7 +315,7 @@ class winMessageBox(wx.Dialog):
 
         text_size = self.m_staticText5.GetSize()
         if text_size.GetWidth() < 200:
-            self.m_staticText5.SetMinSize((200, -1))
+            self.m_staticText5.SetMinSize(wx.Size(200, -1))
 
         messageSizer.Add(self.m_staticText5, 0, wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
 
