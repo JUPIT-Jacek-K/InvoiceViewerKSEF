@@ -1,9 +1,10 @@
 import os
-from UI_Windows.winAbout import winAbout
+
 import wx
 
-from UI_Windows.winInvoiceView import winInvoiceView
+from UI_Windows.winAbout import winAbout
 from UI_Windows.winDialogs import winMessageBox, wxdlg_const
+from UI_Windows.winInvoiceView import winInvoiceView
 
 
 class winMain(wx.MDIParentFrame):
@@ -49,15 +50,24 @@ class winMain(wx.MDIParentFrame):
             id_op = openFileDialog.ShowModal()
             if id_op == wx.ID_OK:
                 path = openFileDialog.GetPath()
-                mdiWinInvoice = winInvoiceView(self, f"Podgląd faktury - {os.path.basename( path)}")
-                if mdiWinInvoice.load_invoice( path ):
+                mdiWinInvoice = winInvoiceView(
+                    self, f"Podgląd faktury - {os.path.basename(path)}"
+                )
+                if mdiWinInvoice.load_invoice(path):
                     mdiWinInvoice.Show()
                     mdiWinInvoice.htmlWinFa.SetFocus()
                 else:
                     mdiWinInvoice.Destroy()
+                    mgg = winMessageBox(
+                        "błąd xml",
+                        "fa",
+                        wxdlg_const.ID_OK | wxdlg_const.ICON_STOP,
+                        self,
+                    )
+                    mgg.ShowModal()
 
             openFileDialog.Destroy()
-        elif id == wx.ID_ABOUT :
+        elif id == wx.ID_ABOUT:
             dlgAbout = winAbout()
             dlgAbout.ShowModal()
             dlgAbout.Destroy()

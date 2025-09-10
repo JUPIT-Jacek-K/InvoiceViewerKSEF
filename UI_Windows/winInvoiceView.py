@@ -6,13 +6,16 @@ import lxml.etree as ET
 import wx
 import wx.html2
 
-from Modules.misc import FileResolver
+from Modules.invoice_fncs import fa_generate_html
+from Modules.misc import calculate_path
 from UI_Windows.winDialogs import winMessageBox, wxdlg_const
 
 _ = gettext.gettext
 
 
 class winInvoiceView(wx.MDIChildFrame):
+    html_file = ""
+
     def __init__(self, parent, title):
         super(winInvoiceView, self).__init__(
             parent, title=title, size=wx.Size(800, 600)
@@ -45,57 +48,27 @@ class winInvoiceView(wx.MDIChildFrame):
         self.vieSizer.Add(self.htmlWinFa, 1, wx.EXPAND | wx.ALL, 5)
         self.SetSizer(self.vieSizer)
         self.Layout()
+        self.Bind(wx.EVT_CLOSE, self.onClose)
+
+    def onClose(self, e: wx.Event):
+        self.htmlWinFa.Close()
+        if len(self.html_file) > 0 and os.path.isfile(self.html_file):
+            base_file = calculate_path( self.html_file )
+            print(base_file)
+            os.remove(base_file )
+            self.html_file = ""
+        self.Destroy()
 
     def load_invoice(self, xml_filename):
-        xsl_fa1_filename = "KSEF_Wzory/FA_1/styl.xsl"
-        xsl_fa2_filename = "KSEF_Wzory/FA_2/styl.xsl"
-        xsl_fa3_filename = "KSEF_Wzory/FA_2/styl.xsl"
-        file_fa_full = os.path.basename(xml_filename)
-        file_fa_base, file_fa_ext = os.path.splitext(file_fa_full)
-        folder_name = "BUFOR"
         parsing_ok = False
-        html_body = ""
-        try:
-            parser = ET.XMLParser()
-            parser.resolvers.add(FileResolver())
-            dom = ET.parse(xml_filename, parser)
-            xslt = ET.parse(xsl_fa2_filename, parser)
-            transform = ET.XSLT(xslt)
-            newdom = transform(dom)
-            html_body = ET.tostring(newdom, pretty_print=True, encoding="unicode")
+        self.html_file = fa_generate_html(
+            fa_file=xml_filename, type_xsl="MF", silent=False
+        )
+        # print(html_body)
+
+        if len(self.html_file) > 0 and os.path.isfile(self.html_file):
+            print("ok")
+            absolute_path = os.path.abspath( calculate_path( self.html_file) )
+            self.htmlWinFa.LoadURL(f"file:///{absolute_path}")
             parsing_ok = True
-        except FileNotFoundError as e:
-            # Błąd: jeden z plików nie został znaleziony.
-            msg = f"Nie znaleziono pliku: {e.filename}"
-            msgBox = winMessageBox(
-                msg, "Podgląd faktury", wxdlg_const.ICON_STOP | wxdlg_const.ID_OK, self
-            )
-            msgBox.ShowModal()
-
-        except ET.XMLSyntaxError as e:
-            # Błąd składniowy w pliku XML.
-            msg = f"Błąd formatu pliku XML. Sprawdź, czy plik jest poprawnie sformułowany. Szczegóły: {e}"
-            msgBox = winMessageBox(
-                msg, "Podgląd faktury", wxdlg_const.ICON_STOP | wxdlg_const.ID_OK, self
-            )
-            msgBox.ShowModal()
-
-        except ET.XSLTParseError as e:
-            # Błąd składniowy w pliku XSLT.
-            msg = f"Błąd w pliku XSLT. Sprawdź, czy plik jest poprawny. Szczegóły: {e}"
-            msgBox = winMessageBox(
-                msg, "Podgląd faktury", wxdlg_const.ICON_STOP | wxdlg_const.ID_OK, self
-            )
-            msgBox.ShowModal()
-
-        except Exception as e:
-            # Obsługa wszelkich innych, nieprzewidzianych błędów.
-            msg = f"Wystąpił nieoczekiwany błąd: {e}"
-            msgBox = winMessageBox(
-                msg, "Podgląd faktury", wxdlg_const.ICON_ERROR | wxdlg_const.ID_OK, self
-            )
-            msgBox.ShowModal()
-
-        if parsing_ok:
-            self.htmlWinFa.SetPage(html=html_body, baseUrl="")
         return parsing_ok

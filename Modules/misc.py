@@ -1,11 +1,11 @@
 import os
 import sys
-import lxml.etree as etree
+
 
 # Zdefiniuj funkcję, która zwraca poprawną ścieżkę do zasobu - niezbędne przy tworzeniu .exe z użyciem PyInstaller
 def resource_path(relative_path):
     try:
-        base_path = sys._MEIPASS
+        base_path = sys._MEIPASS # type: ignore
     except Exception:
         base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
@@ -14,6 +14,3 @@ def resource_path(relative_path):
 def calculate_path(path):
     return resource_path(path)
 
-class FileResolver(etree.Resolver):
-    def resolve(self, url, pubid, context):
-        return self.resolve_filename(url, context)
