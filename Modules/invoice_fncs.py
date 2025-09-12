@@ -14,6 +14,41 @@ from UI_Windows.winDialogs import winMessageBox, wxdlg_const
 invoice_debug = True
 
 
+class file_html_tmp:
+    _tmp_fd = 0
+    _tmp_name = ""
+    _tmp_opened = False
+
+    def __init__(self) -> None:
+        self._tmp_fd, self._tmp_name = tempfile.mkstemp(".html", "FA_", "tmp")
+        self._tmp_opened = True
+
+    def __del__( self ):
+        self.remove()
+
+    @property
+    def fd(self) -> int:
+        return self._tmp_fd
+
+    @property
+    def name(self) -> str:
+        return self._tmp_name
+
+    def file_object(self):
+        return os.fdopen(self._tmp_fd)
+
+    def close(self):
+        if self._tmp_opened:
+            os.close(self._tmp_fd)
+            self._tmp_opened = False
+
+    def remove(self):
+        if self._tmp_opened:
+            os.close(self._tmp_fd)
+        if os.path.isfile(self._tmp_name):
+            os.remove(self._tmp_name)
+
+
 def invoice_print_debug(msg):
     if invoice_debug:
         print(msg)
@@ -112,7 +147,7 @@ def fa_version(
 
 
 def fa_generate_html(fa_file: str, type_xsl: str = "MF", silent: bool = True):
-    html_tmp_file = ""
+    html_tmp = None
     version = fa_version(fa_file, silent)
     invoice_print_debug(f"Wykryta wersja {version}")
     if version != "?":
@@ -125,12 +160,11 @@ def fa_generate_html(fa_file: str, type_xsl: str = "MF", silent: bool = True):
             xml_parser = etree.XMLParser()
             xml_parser.resolvers.add(FileResolver())
             # file_fa_full = os.path.basename(fa_file)
-            
 
             invoice_print_debug(f"Wykryta wersja {version} 1")
             xml_invoice = etree.parse(calculate_path(fa_file), xml_parser)
             invoice_print_debug(f"Wykryta wersja {version} 2")
-            xsl_invoice = etree.parse(xsl_fa2_filename, xml_parser)
+            xsl_invoice = etree.parse(calculate_path(xsl_fa2_filename), xml_parser)
             invoice_print_debug(f"Wykryta wersja {version} 3")
             transform = etree.XSLT(xsl_invoice)
             dom_invoice = transform(xml_invoice)
@@ -140,14 +174,15 @@ def fa_generate_html(fa_file: str, type_xsl: str = "MF", silent: bool = True):
             )
 
             # invoice_print_debug(f"Wykryta wersja {version} 4 -> {varGlobals.app_tmp}")
-            file_fa_mame = 'tmp/FA'tempfile.mkstemp('.html','FA_','tmp')
-            invoice_print_debug(f"Plik TMP -> {file_fa_mame}")
+            html_tmp = file_html_tmp()
 
-            html_tmp_file = file_fa_mame # varGlobals.app_tmp + "/" + 
-            fhtml = open( html_tmp_file, "w")
+            # invoice_print_debug(f"Plik TMP -> {file_fa_mame}")
+
+            # html_tmp_file = file_fa_mame # varGlobals.app_tmp + "/" +
+            fhtml = open( html_tmp.name, "w+")
             if fhtml.writable():
                 fhtml.write(html_body)
-            fhtml.close()
+            html_tmp.close()
 
         except FileNotFoundError as e:
             # Błąd: jeden z plików nie został znaleziony.
@@ -197,4 +232,4 @@ def fa_generate_html(fa_file: str, type_xsl: str = "MF", silent: bool = True):
                 )
                 msgBox.ShowModal()
 
-    return html_tmp_file
+    return html_tmp

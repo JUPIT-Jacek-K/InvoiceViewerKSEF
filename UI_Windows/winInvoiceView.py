@@ -1,12 +1,13 @@
 import gettext
 import os
 import sys
+import tempfile
 
 import lxml.etree as ET
 import wx
 import wx.html2
 
-from Modules.invoice_fncs import fa_generate_html
+from Modules.invoice_fncs import fa_generate_html, file_html_tmp
 from Modules.misc import calculate_path
 from UI_Windows.winDialogs import winMessageBox, wxdlg_const
 
@@ -14,7 +15,7 @@ _ = gettext.gettext
 
 
 class winInvoiceView(wx.MDIChildFrame):
-    html_file = ""
+    tmp_html_file: file_html_tmp | None = None
 
     def __init__(self, parent, title):
         super(winInvoiceView, self).__init__(
@@ -52,23 +53,21 @@ class winInvoiceView(wx.MDIChildFrame):
 
     def onClose(self, e: wx.Event):
         self.htmlWinFa.Close()
-        if len(self.html_file) > 0 and os.path.isfile(self.html_file):
-            base_file = calculate_path( self.html_file )
-            print(base_file)
-            os.remove(base_file )
-            self.html_file = ""
+        if self.tmp_html_file is not None:
+            self.tmp_html_file.remove()
+
         self.Destroy()
 
     def load_invoice(self, xml_filename):
         parsing_ok = False
-        self.html_file = fa_generate_html(
+        self.tmp_html_file = fa_generate_html(
             fa_file=xml_filename, type_xsl="MF", silent=False
         )
         # print(html_body)
 
-        if len(self.html_file) > 0 and os.path.isfile(self.html_file):
+        if self.tmp_html_file is not None:
             print("ok")
-            absolute_path = os.path.abspath( calculate_path( self.html_file) )
+            absolute_path = self.tmp_html_file.name # os.path.abspath(calculate_path(self.tmp_html_file.name))
             self.htmlWinFa.LoadURL(f"file:///{absolute_path}")
             parsing_ok = True
         return parsing_ok

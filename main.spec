@@ -1,7 +1,10 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 added_files = [
-         ( 'Icons', 'Icons' )
+         ( 'Graphics\\Icons', 'Graphics\\Icons' ),
+         ( 'KSEF_Wzory\\FA_1', 'KSEF_Wzory\\FA_1' ),
+         ( 'KSEF_Wzory\\FA_2', 'KSEF_Wzory\\FA_2' ),
+         ( 'KSEF_Wzory\\FA_3', 'KSEF_Wzory\\FA_3' ),
 ]
 a = Analysis(
     ['main.py'],
