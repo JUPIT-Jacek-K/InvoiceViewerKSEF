@@ -8,7 +8,7 @@ import tempfile
 import lxml.etree as etree
 
 from Modules.misc import calculate_path
-from Settings.global_var import fa_versions, varGlobals
+from Settings.global_var import varGlobals
 from UI_Windows.winDialogs import winMessageBox, wxdlg_const
 
 invoice_debug = True
@@ -20,9 +20,9 @@ class file_html_tmp:
     _tmp_opened = False
 
     def __init__(self) -> None:
-        if not os.path.exists("./tmp"):
-            os.mkdir("./tmp")
-        self._tmp_fd, self._tmp_name = tempfile.mkstemp(".html", "FA_", "tmp")
+        if not os.path.exists( varGlobals.path_tmp):
+            os.mkdir( varGlobals.path_tmp )
+        self._tmp_fd, self._tmp_name = tempfile.mkstemp(".html", "FA_", varGlobals.path_tmp )
         self._tmp_opened = True
 
     def __del__(self):
@@ -68,8 +68,8 @@ def fa_x_validate(
     title_mgsbox: str = "Weryfikacja struktury eFaktura",
 ):
     lCont = True
-    if fa_ver in fa_versions:
-        xsd_file = fa_versions[fa_ver]["xsd"]
+    if fa_ver in varGlobals.fa_versions:
+        xsd_file = varGlobals.fa_versions[fa_ver]["xsd"]
         if os.path.isfile(calculate_path(fa_file)):
             try:
                 xml_parser = etree.XMLParser()
@@ -140,7 +140,7 @@ def fa_version(
     title_mgsbox: str = "Weryfikacja struktury eFaktura",
 ):
     version = "?"
-    ver_keys_list = fa_versions.keys()
+    ver_keys_list = varGlobals.fa_versions.keys()
     for ver_key in ver_keys_list:
         if fa_x_validate(file_fa, ver_key, True):
             version = ver_key
@@ -154,9 +154,9 @@ def fa_generate_html(fa_file: str, type_xsl: str = "MF", silent: bool = True):
     invoice_print_debug(f"Wykryta wersja {version}")
     if version != "?":
         if type_xsl == "MF":
-            xsl_fa2_filename = fa_versions[version]["xsl_mf"]
+            xsl_fa2_filename = varGlobals.fa_versions[version]["xsl_mf"]
         else:
-            xsl_fa2_filename = fa_versions[version]["xsl_app"]
+            xsl_fa2_filename = varGlobals.fa_versions[version]["xsl_app"]
 
         try:
             xml_parser = etree.XMLParser()
