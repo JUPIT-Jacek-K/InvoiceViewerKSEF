@@ -1,0 +1,1 @@
+Folder do generowania przez pyinstaller wersji jednofolderowej tyb OnDir
