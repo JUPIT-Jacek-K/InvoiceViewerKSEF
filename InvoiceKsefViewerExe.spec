@@ -3,6 +3,7 @@
 added_files = [
          ( 'Graphics\\Icons', 'Graphics\\Icons' ),
          ( 'Graphics\\About\\aboutImage.png', 'Graphics\\About\\aboutImage.png' ),
+         ( 'Graphics\\CreativeFreedomIcon\\', 'Graphics\\CreativeFreedomIcon\\' ),
          ( 'KSEF_Wzory\\FA_1', 'KSEF_Wzory\\FA_1' ),
          ( 'KSEF_Wzory\\FA_2', 'KSEF_Wzory\\FA_2' ),
          ( 'KSEF_Wzory\\FA_3', 'KSEF_Wzory\\FA_3' ),
