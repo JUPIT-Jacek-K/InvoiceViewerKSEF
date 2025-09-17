@@ -1,0 +1,43 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run project",
+            "type": "shell",
+            "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+            "args": [
+                "main.py"
+            ]
+        },
+        {
+            "label": "Run current file",
+            "type": "shell",
+            "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+            "args": [
+                "${file}"
+            ]
+        },
+        {
+            "label": "Biuld runtimie package onFile",
+            "type": "process",
+            "command" : "${workspaceFolder}\\.venv\\Scripts\\pyinstaller.exe",
+            "args": [
+                "--clean",
+                 "InvoiceKsefViewerExe.spec"
+            ]
+        },
+        {
+            "label": "Biuld runtimie package One Dir",
+            "type": "shell",
+            "command" : "${workspaceFolder}\\.venv\\Scripts\\pyinstaller.exe",
+            "args": [
+                "--distpath",
+                "${workspaceFolder}\\dist_folder",
+                "--clean",
+                 "InvoiceKsefViewerFolder.spec"
+            ]
+        }
+    ]
+}
