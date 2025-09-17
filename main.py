@@ -2,9 +2,6 @@ from Settings.global_var import varGlobals
 from datetime import datetime
 import wx
 from UI_Windows.winMain import winMain
-from Modules.invoice_fncs import invoice_debug
-
-invoice_debug = True
 
 if __name__ == "__main__":
     app = wx.App()

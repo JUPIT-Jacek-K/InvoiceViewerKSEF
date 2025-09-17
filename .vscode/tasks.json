@@ -36,6 +36,7 @@
                 "--distpath",
                 "${workspaceFolder}\\dist_folder",
                 "--clean",
+                "--noconfirm",
                  "InvoiceKsefViewerFolder.spec"
             ]
         }

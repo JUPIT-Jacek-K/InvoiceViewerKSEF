@@ -20,10 +20,12 @@ class file_html_tmp:
     _tmp_opened = False
 
     def __init__(self) -> None:
+        if not os.path.exists("./tmp"):
+            os.mkdir("./tmp")
         self._tmp_fd, self._tmp_name = tempfile.mkstemp(".html", "FA_", "tmp")
         self._tmp_opened = True
 
-    def __del__( self ):
+    def __del__(self):
         self.remove()
 
     @property
@@ -179,7 +181,7 @@ def fa_generate_html(fa_file: str, type_xsl: str = "MF", silent: bool = True):
             # invoice_print_debug(f"Plik TMP -> {file_fa_mame}")
 
             # html_tmp_file = file_fa_mame # varGlobals.app_tmp + "/" +
-            fhtml = open( html_tmp.name, "w+")
+            fhtml = open(html_tmp.name, "w+")
             if fhtml.writable():
                 fhtml.write(html_body)
             html_tmp.close()

@@ -8,7 +8,6 @@ import wx
 import wx.html2
 
 from Modules.invoice_fncs import fa_generate_html, file_html_tmp
-from Modules.misc import calculate_path
 from UI_Windows.winDialogs import winMessageBox, wxdlg_const
 
 _ = gettext.gettext
@@ -66,8 +65,8 @@ class winInvoiceView(wx.MDIChildFrame):
         # print(html_body)
 
         if self.tmp_html_file is not None:
-            print("ok")
             absolute_path = self.tmp_html_file.name # os.path.abspath(calculate_path(self.tmp_html_file.name))
             self.htmlWinFa.LoadURL(f"file:///{absolute_path}")
             parsing_ok = True
+        
         return parsing_ok
