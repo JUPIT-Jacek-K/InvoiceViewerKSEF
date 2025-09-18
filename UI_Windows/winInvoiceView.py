@@ -1,4 +1,5 @@
 import gettext
+import os
 
 import lxml.etree as ET
 import wx
@@ -14,6 +15,7 @@ _ = gettext.gettext
 
 class winInvoiceView(wx.MDIChildFrame):
     tmp_html_file: file_html_tmp | None = None
+    InvoiceFilename: str = ""
 
     def __init__(self, parent, title):
         super(winInvoiceView, self).__init__(
@@ -35,16 +37,20 @@ class winInvoiceView(wx.MDIChildFrame):
         self.m_toolPrint = self.m_toolBar1.AddTool(
             wx.ID_PRINT,
             _("Drukuj"),
-            wx.BitmapBundle.FromBitmap(wx.Bitmap(
-                calculate_path(varGlobals.path_icons_16 + "\\Print-16x16.png"),
-                wx.BITMAP_TYPE_ANY,
-            )),
-            wx.BitmapBundle.FromBitmap(wx.Bitmap(
-                calculate_path(
-                    varGlobals.path_icons_16 + "\\Disabled\\Print-16x16.png"
-                ),
-                wx.BITMAP_TYPE_ANY,
-            )),
+            wx.BitmapBundle.FromBitmap(
+                wx.Bitmap(
+                    calculate_path(varGlobals.path_icons_16 + "/Print-16x16.png"),
+                    wx.BITMAP_TYPE_ANY,
+                )
+            ),
+            wx.BitmapBundle.FromBitmap(
+                wx.Bitmap(
+                    calculate_path(
+                        varGlobals.path_icons_16 + "/Disabled/Print-16x16.png"
+                    ),
+                    wx.BITMAP_TYPE_ANY,
+                )
+            ),
             wx.ITEM_NORMAL,
             _("Drukuj fakturę"),
             wx.EmptyString,
@@ -55,16 +61,20 @@ class winInvoiceView(wx.MDIChildFrame):
         self.m_toolClose = self.m_toolBar1.AddTool(
             wx.ID_CLOSE,
             _("Zamknij"),
-            wx.BitmapBundle.FromBitmap(wx.Bitmap(
-                calculate_path(varGlobals.path_icons_16 + "\\Close-16x16.png"),
-                wx.BITMAP_TYPE_ANY,
-            )),
-            wx.BitmapBundle.FromBitmap(wx.Bitmap(
-                calculate_path(
-                    varGlobals.path_icons_16 + "\\Disabled\\Close-16x16.png"
-                ),
-                wx.BITMAP_TYPE_ANY,
-            )),
+            wx.BitmapBundle.FromBitmap(
+                wx.Bitmap(
+                    calculate_path(varGlobals.path_icons_16 + "/Close-16x16.png"),
+                    wx.BITMAP_TYPE_ANY,
+                )
+            ),
+            wx.BitmapBundle.FromBitmap(
+                wx.Bitmap(
+                    calculate_path(
+                        varGlobals.path_icons_16 + "/Disabled/Close-16x16.png"
+                    ),
+                    wx.BITMAP_TYPE_ANY,
+                )
+            ),
             wx.ITEM_NORMAL,
             _("Zamknij okno podglądu faktury"),
             wx.EmptyString,
@@ -100,8 +110,8 @@ class winInvoiceView(wx.MDIChildFrame):
         self.htmlWinFa.Close()
         if self.tmp_html_file is not None:
             self.tmp_html_file.remove()
-
         self.Destroy()
+        e.Skip()
 
     def onPrint(self, e: wx.Event):
         if self.htmlWinFa.IsBusy():
@@ -127,6 +137,7 @@ class winInvoiceView(wx.MDIChildFrame):
                 self.tmp_html_file.name
             )  # os.path.abspath(calculate_path(self.tmp_html_file.name))
             self.htmlWinFa.LoadURL(f"file:///{absolute_path}")
+            self.InvoiceFilename = os.path.basename(xml_filename)
             parsing_ok = True
 
         return parsing_ok

@@ -24,27 +24,27 @@ class _varGlobals:
 
     @property
     def path_icons_16(self):
-        return "Graphics\\CreativeFreedomIcon\\16x16"
+        return "Graphics/CreativeFreedomIcon/16x16"
 
     @property
     def path_icons_24(self):
-        return "Graphics\\CreativeFreedomIcon\\24x24"
+        return "Graphics/CreativeFreedomIcon/24x24"
 
     @property
     def path_icons_34(self):
-        return "Graphics\\CreativeFreedomIcon\\32x32"
+        return "Graphics/CreativeFreedomIcon/32x32"
 
     @property
     def path_icons_48(self):
-        return "Graphics\\CreativeFreedomIcon\\48x48"
+        return "Graphics/CreativeFreedomIcon/48x48"
 
     @property
     def path_icons_ico(self):
-        return "Graphics\\CreativeFreedomIcon\\ico"
+        return "Graphics/CreativeFreedomIcon/ico"
 
     @property
     def path_glyph(self):
-        return "Graphics\\CreativeFreedomIcon\\glyphs"
+        return "Graphics/CreativeFreedomIcon/glyphs"
 
     @property
     def fa_versions(self):
