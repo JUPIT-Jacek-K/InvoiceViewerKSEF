@@ -110,7 +110,6 @@ class winInvoiceView(wx.MDIChildFrame):
         self.htmlWinFa.Close()
         if self.tmp_html_file is not None:
             self.tmp_html_file.remove()
-        self.Destroy()
         e.Skip()
 
     def onPrint(self, e: wx.Event):

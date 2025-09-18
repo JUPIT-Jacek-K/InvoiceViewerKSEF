@@ -2,6 +2,8 @@ from datetime import datetime
 
 
 class _varGlobals:
+    invoice_debug: bool = False
+
     @property
     def app_title(self):
         return "Przeglądarka faktur KSEF"

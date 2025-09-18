@@ -11,7 +11,7 @@ from Modules.misc import calculate_path
 from Settings.global_var import varGlobals
 from UI_Windows.winDialogs import winMessageBox, wxdlg_const
 
-invoice_debug = True
+
 
 
 class file_html_tmp:
@@ -52,7 +52,7 @@ class file_html_tmp:
 
 
 def invoice_print_debug(msg):
-    if invoice_debug:
+    if varGlobals.invoice_debug:
         print(msg)
 
 

@@ -6,7 +6,7 @@ def TranslateWindowMenu(xMdiParent: wx.MDIParentFrame):
     if menuOkno is not None:
         items = menuOkno.GetMenuItems()
         for item in items:
-            print(f"Item ID: {item.GetId()}, Label: {item.GetItemLabel()}")
+            # print(f"Item ID: {item.GetId()}, Label: {item.GetItemLabel()}")
             if item.GetId() == wx.ID_MDI_WINDOW_CASCADE:
                 item.SetItemLabel("&Kaskadowo")
             if item.GetId() == wx.ID_MDI_WINDOW_TILE_HORZ:

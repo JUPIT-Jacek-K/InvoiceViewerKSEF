@@ -136,9 +136,10 @@ class winMain(wx.MDIParentFrame):
 
     def onChildClose(self, event : wx.CloseEvent):
         child = event.GetEventObject()
-        print("Usuwam Okno")
+        # print("Usuwam Okno")
         if child in self.childs:
             self.childs.remove(child)
+            child.Destroy()
         event.Skip()
 
     def onOpen(self, event):
