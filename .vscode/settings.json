@@ -1,12 +1,14 @@
 {
     "python.analysis.typeCheckingMode": "standard",
-    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "python-envs.defaultEnvManager": "ms-python.python:venv",
     "python-envs.pythonProjects": [
         {
-            "path": "${workspaceFolder}/.venv",
+            "path": "${workspaceFolder}\\.venv",
             "type": "venv",
-            "envManager": "ms-python.python:system",
+            "envManager": "ms-python.python:venv",
             "packageManager": "ms-python.python:pip"
         }
     ],
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "python.terminal.activateEnvironment": true,
 }

@@ -1,7 +1,5 @@
 import gettext
 import os
-
-import lxml.etree as ET
 import wx
 import wx.html2
 
@@ -61,7 +59,7 @@ class winInvoiceView(wx.MDIChildFrame):
         self.m_toolBar1.AddStretchableSpace()
         self.m_toolClose = self.m_toolBar1.AddTool(
             wx.ID_CLOSE,
-            _("Zamknij"),
+            _("Zamknij pogląd"),
             wx.BitmapBundle.FromBitmap(
                 wx.Bitmap(
                     calculate_path(varGlobals.path_icons_16 + "/Close-16x16.png"),
