@@ -1,12 +1,12 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 added_files = [
-         ( 'Graphics\\Icons', 'Graphics\\Icons' ),
-         ( 'Graphics\\About\\aboutImage.png', 'Graphics\\About\\aboutImage.png' ),
-         ( 'Graphics\\CreativeFreedomIcon\\', 'Graphics\\CreativeFreedomIcon\\' ),
-         ( 'KSEF_Wzory\\FA_1', 'KSEF_Wzory\\FA_1' ),
-         ( 'KSEF_Wzory\\FA_2', 'KSEF_Wzory\\FA_2' ),
-         ( 'KSEF_Wzory\\FA_3', 'KSEF_Wzory\\FA_3' ),
+         ( 'Graphics/Icons', 'Graphics/Icons' ),
+         ( 'Graphics/CreativeFreedomIcon/', 'Graphics/CreativeFreedomIcon/' ),
+         ( 'Graphics/About/*.png', 'Graphics/About/' ),
+         ( 'KSEF_Wzory/FA_1', 'KSEF_Wzory/FA_1' ),
+         ( 'KSEF_Wzory/FA_2', 'KSEF_Wzory/FA_2' ),
+         ( 'KSEF_Wzory/FA_3', 'KSEF_Wzory/FA_3' ),
 ]
 a = Analysis(
     ['main.py'],
@@ -29,7 +29,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='TestPy1',
+    name='InvoiceViewerKSEF',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

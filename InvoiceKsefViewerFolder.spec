@@ -1,11 +1,11 @@
 # -*- mode: python ; coding: utf-8 -*-
 added_files = [
-         ( 'Graphics\\Icons', 'Graphics\\Icons' ),
-         ( 'Graphics\\CreativeFreedomIcon\\', 'Graphics\\CreativeFreedomIcon\\' ),
-         ( 'Graphics\\About\\*.png', 'Graphics\\About\\' ),
-         ( 'KSEF_Wzory\\FA_1', 'KSEF_Wzory\\FA_1' ),
-         ( 'KSEF_Wzory\\FA_2', 'KSEF_Wzory\\FA_2' ),
-         ( 'KSEF_Wzory\\FA_3', 'KSEF_Wzory\\FA_3' ),
+         ( 'Graphics/Icons', 'Graphics/Icons' ),
+         ( 'Graphics/CreativeFreedomIcon/', 'Graphics/CreativeFreedomIcon/' ),
+         ( 'Graphics/About/*.png', 'Graphics/About/' ),
+         ( 'KSEF_Wzory/FA_1', 'KSEF_Wzory/FA_1' ),
+         ( 'KSEF_Wzory/FA_2', 'KSEF_Wzory/FA_2' ),
+         ( 'KSEF_Wzory/FA_3', 'KSEF_Wzory/FA_3' ),
 ]
 
 

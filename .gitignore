@@ -216,3 +216,5 @@ Test_py
 tmp
 
 sync.ffs_db
+
+.fake

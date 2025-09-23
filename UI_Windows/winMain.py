@@ -128,19 +128,24 @@ class winMain(wx.MDIParentFrame):
         self.Bind(wx.EVT_TOOL, self.onOpen, id=wx.ID_OPEN)
 
     def RegisterChild(self, child ):
-        child.Bind(wx.EVT_CLOSE, self.onChildClose)
+        # child.Bind(wx.EVT_CLOSE, self.onChildClose)
         self.childs.append( child)
         if len(self.childs) > 0:
             TranslateWindowMenu( self )
 
-
-    def onChildClose(self, event : wx.CloseEvent):
-        child = event.GetEventObject()
-        # print("Usuwam Okno")
+    def DrRegisterChild(self, child ):
+        # child.Bind(wx.EVT_CLOSE, self.onChildClose)
         if child in self.childs:
             self.childs.remove(child)
-            child.Destroy()
-        event.Skip()
+
+
+    # def onChildClose(self, event : wx.CloseEvent):
+    #    child = event.GetEventObject()
+    #    # print("Usuwam Okno")
+    #    if child in self.childs:
+    #        self.childs.remove(child)
+    #        # child.Destroy()
+    #    event.Skip()
 
     def onOpen(self, event):
         self.OpenInvoice()
@@ -155,6 +160,7 @@ class winMain(wx.MDIParentFrame):
             dlgAbout = winAbout()
             dlgAbout.ShowModal()
             dlgAbout.Destroy()
+        event.Skip()
 
     def OpenInvoice(self):
         openFileDialog = wx.FileDialog(

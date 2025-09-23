@@ -20,7 +20,7 @@
             ]
         },
         {
-            "label": "Biuld runtimie package onFile",
+            "label": "Build runtimie package onFile",
             "type": "process",
             "command" : "${workspaceFolder}\\.venv\\Scripts\\pyinstaller.exe",
             "args": [
@@ -29,7 +29,7 @@
             ]
         },
         {
-            "label": "Biuld runtimie package One Dir",
+            "label": "Build runtimie package One Dir",
             "type": "shell",
             "command" : "${workspaceFolder}\\.venv\\Scripts\\pyinstaller.exe",
             "args": [

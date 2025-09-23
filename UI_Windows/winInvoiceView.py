@@ -21,6 +21,7 @@ class winInvoiceView(wx.MDIChildFrame):
         super(winInvoiceView, self).__init__(
             parent, title=title, size=wx.Size(800, 600)
         )
+        self.parent = parent
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         self.m_toolBar1 = self.CreateToolBar(
@@ -102,14 +103,25 @@ class winInvoiceView(wx.MDIChildFrame):
         self.vieSizer.Add(self.htmlWinFa, 1, wx.EXPAND | wx.ALL, 5)
         self.SetSizer(self.vieSizer)
         self.Layout()
-        self.Bind(wx.EVT_CLOSE, self.onClose)
-        self.Bind(wx.EVT_TOOL, self.onClose, id=wx.ID_CLOSE)
+        self.Bind(wx.EVT_CLOSE, self.onWinClose)
+        self.Bind(wx.EVT_TOOL, self.onBtnClose, id=wx.ID_CLOSE)
         self.Bind(wx.EVT_TOOL, self.onPrint, id=wx.ID_PRINT)
 
-    def onClose(self, e: wx.Event):
-        self.htmlWinFa.Close()
-        if self.tmp_html_file is not None:
-            self.tmp_html_file.remove()
+    # def __del__(self):
+    #    if self.tmp_html_file is not None:
+    #        self.tmp_html_file.remove()
+    #    self.htmlWinFa.Destroy()
+
+    def onBtnClose(self, e: wx.Event):
+        self.Close( )
+    #    # e.Skip()
+
+    def onWinClose(self, e: wx.Event):
+        # self.htmlWinFa.Close()
+        # if self.tmp_html_file is not None:
+        #    self.tmp_html_file.remove()
+        self.parent.DrRegisterChild(self)
+        # self.Destroy()
         e.Skip()
 
     def onPrint(self, e: wx.Event):
