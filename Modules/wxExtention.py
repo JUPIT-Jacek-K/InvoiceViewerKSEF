@@ -4,7 +4,9 @@ import wx
 def TranslateWindowMenu(xMdiParent: wx.MDIParentFrame):
     menuOkno = xMdiParent.GetWindowMenu()  # Pobieramy menu okien
     if menuOkno is not None:
+        # xMdiParent.GetMenuBar()
         items = menuOkno.GetMenuItems()
+
         for item in items:
             # print(f"Item ID: {item.GetId()}, Label: {item.GetItemLabel()}")
             if item.GetId() == wx.ID_MDI_WINDOW_CASCADE:

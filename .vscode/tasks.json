@@ -21,11 +21,11 @@
         },
         {
             "label": "Build runtimie package onFile",
-            "type": "process",
+            "type": "shell",
             "command" : "${workspaceFolder}\\.venv\\Scripts\\pyinstaller.exe",
             "args": [
                 "--clean",
-                 "InvoiceKsefViewerExe.spec"
+                "InvoiceKsefViewerExe.spec"
             ]
         },
         {
@@ -37,7 +37,7 @@
                 "${workspaceFolder}\\dist_folder",
                 "--clean",
                 "--noconfirm",
-                 "InvoiceKsefViewerFolder.spec"
+                "InvoiceKsefViewerFolder.spec"
             ]
         }
     ]

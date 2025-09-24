@@ -1,0 +1,11 @@
+<Configuration>
+	<MappedFolders>
+		<MappedFolder>
+			<HostFolder>D:\PROG\python\InvoiceViewerKSEF\dist_folder\InvoiceKsefViewer</HostFolder>
+			<SandboxFolder>C:\ProgramsTest\InvoiceKsefViewer</SandboxFolder>
+		</MappedFolder>
+	</MappedFolders>
+	<LogonCommand>
+		<Command>powershell -Command "New-Item -ItemType SymbolicLink -Path C:\Users\WDAGUtilityAccount\Desktop\InvoiceKsefViewer -Target C:\ProgramsTest\InvoiceKsefViewer"</Command>
+	</LogonCommand>	
+</Configuration>
